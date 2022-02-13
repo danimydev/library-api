@@ -4,13 +4,15 @@ class Book {
   #_title;
   #_author;
   #_publishedDate;
+  #_category;
   #_isbn;
 
-  constructor({ id, title, author, publishedDate, isbn }) {
+  constructor({ id, title, author, publishedDate, category, isbn }) {
     this.#_id = id;
     this.#_title = title;
     this.#_author = author;
     this.#_publishedDate = publishedDate;
+    this.#_category = category;
     this.#_isbn = isbn;
   }
 
@@ -20,6 +22,7 @@ class Book {
       title: this.#_title,
       author: this.#_author,
       publishedDate: this.#_publishedDate,
+      category: this.#_category,
       isbn: this.#_isbn,
     }
   }
@@ -38,6 +41,10 @@ class Book {
 
   get publishedDate() {
     return this.#_publishedDate;
+  }
+
+  get category() {
+    return this.#_category;
   }
 
   get isbn() {
@@ -61,6 +68,12 @@ class Book {
   set publishedDate(date) {
     if (!date.trim()) {
       throw new Error('cannot set null publishedDate');
+    }
+  }
+
+  set category(newCategory) {
+    if (!newCategory.trim()) {
+      throw new Error('cannot set null category');
     }
   }
 

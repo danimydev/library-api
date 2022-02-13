@@ -17,24 +17,23 @@ describe('create book behaviour', () => {
       title: 'book 1',
       author: 'author 1',
       publishedDate: '12-02-2022',
+      category: 'category 1',
       isbn: 'isbn 1',
     });
 
     expect(book.getInfo()).toEqual({
-      id: '6a77e35dc5b10c68d4db523ff5a68b5c',
+      id: '593210d2ffcf3f04be0cf36f25877cdb',
       title: 'book 1',
       author: 'author 1',
       publishedDate: '12-02-2022',
+      category: 'category 1',
       isbn: 'isbn 1'
     });
-    expect(book.id).toBe('6a77e35dc5b10c68d4db523ff5a68b5c');
   });
 
-  /* test('book id should be 593210d2ffcf3f04be0cf36f25877cdb', async () => {
-      expect(book.id).toBe('593210d2ffcf3f04be0cf36f25877cdb');
-  }); */
 
-  test('should throw error', async () => {
+
+  test('should throw error when missing title on creation', async () => {
     try {
       bookFactory.createBook({
         title: '',
@@ -43,6 +42,21 @@ describe('create book behaviour', () => {
       });
     } catch (error) {
       expect(error.message).toBe('error creating book, empty values passed!');
+    }
+  });
+
+  test('should throw error when set book title to null or empty', () => {
+    try {
+      const book = bookFactory.createBook({
+        title: 'book 1',
+        author: 'author 1',
+        publishedDate: '12-02-2022',
+        category: 'category 1',
+        isbn: 'isbn 1',
+      });
+      book.title = '';
+    } catch (error) {
+      expect(error.message).toBe('cannot set null title');
     }
   });
 

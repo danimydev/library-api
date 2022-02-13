@@ -10,11 +10,12 @@ class BookFactory {
 		this.#isValidDate = isValidDate;
 	}
 
-	createBook({ title, author, publishedDate, isbn }) {
+	createBook({ title, author, publishedDate, category, isbn }) {
 		if (!title.trim() ||
 			!author.trim() ||
 			!isbn.trim() ||
-			!publishedDate.trim()) {
+			!publishedDate.trim() ||
+			!category.trim()) {
 			throw new Error('error creating book, empty values passed!');
 		}
 
@@ -22,8 +23,11 @@ class BookFactory {
 			throw new Error('invalid date passed!');
 		}
 
-		const id = this.#generateId({ title, author, publishedDate, isbn });
-		return new this.#Book({ id, title, author, publishedDate, isbn });
+		const id = this.#generateId({ title, author, isbn });
+		return new this.#Book({
+			id, title, author,
+			publishedDate, category, isbn
+		});
 	}
 
 }
