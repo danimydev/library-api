@@ -2,15 +2,15 @@ class Book {
 
   #_id;
   #_title;
-  #_author;
+  #_authorId;
   #_publishedDate;
   #_category;
   #_isbn;
 
-  constructor({ id, title, author, publishedDate, category, isbn }) {
+  constructor({ id, title, authorId, publishedDate, category, isbn }) {
     this.#_id = id;
     this.#_title = title;
-    this.#_author = author;
+    this.#_authorId = authorId;
     this.#_publishedDate = publishedDate;
     this.#_category = category;
     this.#_isbn = isbn;
@@ -20,7 +20,7 @@ class Book {
     return {
       id: this.#_id,
       title: this.#_title,
-      author: this.#_author,
+      authorId: this.#_authorId,
       publishedDate: this.#_publishedDate,
       category: this.#_category,
       isbn: this.#_isbn,
@@ -36,7 +36,7 @@ class Book {
   }
 
   get author() {
-    return this.#_author;
+    return this.#_authorId;
   }
 
   get publishedDate() {
@@ -58,11 +58,11 @@ class Book {
     this.#_title = newTitle;
   }
 
-  set author(newAuthor) {
-    if (!newAuthor.trim()) {
+  set authorId(newAuthorId) {
+    if (!newAuthorId.trim()) {
       throw new Error('cannot set null author');
     }
-    this.#_author = newAuthor;
+    this.#_authorId = newAuthorId;
   }
 
   set publishedDate(date) {
