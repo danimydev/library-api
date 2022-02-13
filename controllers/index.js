@@ -8,6 +8,17 @@ function getIndex(httpRequest) {
   }
 }
 
+function postIndex(httpRequest) {
+  return {
+    statusCode: 201,
+    body: {
+      method: httpRequest.method,
+      path: httpRequest.path,
+    }
+  }
+}
+
 module.exports = {
   getIndex,
+  postIndex,
 }
