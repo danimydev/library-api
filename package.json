@@ -9,7 +9,9 @@
   "scripts": {
     "test": "jest --expand",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "migrate:knex": "npx knex migrate:latest --knexfile database/knexfile.js",
+    "rollback:knex": "npx knex migrate:rollback --knexfile database/knexfile.js"
   },
   "author": "daniel madrid",
   "license": "ISC",

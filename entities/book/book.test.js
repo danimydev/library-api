@@ -15,16 +15,16 @@ describe('create book behaviour', () => {
 
     const book = bookFactory.createBook({
       title: 'book 1',
-      author: 'author 1',
+      authorId: 'author 1',
       publishedDate: '12-02-2022',
       category: 'category 1',
       isbn: 'isbn 1',
     });
 
     expect(book.getInfo()).toEqual({
-      id: '593210d2ffcf3f04be0cf36f25877cdb',
+      id: 'ad88a73e5ebe79e715f1a273d22819b3',
       title: 'book 1',
-      author: 'author 1',
+      authorId: 'author 1',
       publishedDate: '12-02-2022',
       category: 'category 1',
       isbn: 'isbn 1'
@@ -37,7 +37,7 @@ describe('create book behaviour', () => {
     try {
       bookFactory.createBook({
         title: '',
-        author: 'author 2',
+        authorId: 'author 2',
         isbn: '123',
       });
     } catch (error) {
@@ -49,7 +49,7 @@ describe('create book behaviour', () => {
     try {
       const book = bookFactory.createBook({
         title: 'book 1',
-        author: 'author 1',
+        authorId: 'author 1',
         publishedDate: '12-02-2022',
         category: 'category 1',
         isbn: 'isbn 1',
