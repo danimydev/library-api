@@ -2,14 +2,6 @@ const knex = require('knex');
 const { KnexAdapter, buildKnexConfig } = require('./knex');
 const { config: { database } } = require('../../config');
 
-/*//mockDB
-database.host = 'localhost';
-database.port = 5432;
-database.user = 'postgres';
-database.password = 'secret';
-database.name = 'test';
-*/
-
 const knexAdapter = new KnexAdapter({
   knex,
   config: buildKnexConfig(database),
@@ -28,7 +20,7 @@ describe('knex ORMAdpater behaviour', () => {
         id: 'ad88a73e5ebe79e715f1a273d22819b3',
         title: 'book 1',
         author_id: 'author 1',
-        published_date: '12-02-2022',
+        published_date: '2022-12-02T05:00:00.000Z',
         category: 'category 1',
         isbn: 'isbn 1',
       }
