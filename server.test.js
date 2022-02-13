@@ -1,7 +1,7 @@
 const { Server } = require('./server');
 const { FastifyStrategy } = require('./web/fastify_strategy');
 
-const httpStrategy = new FastifyStrategy({});
+const httpStrategy = new FastifyStrategy({ options: { logger: false } });
 const server = new Server({ httpStrategy });
 const port = 3000;
 const fastify = httpStrategy.server;
