@@ -1,9 +1,15 @@
 class KnexAdapter {
 
   #knex;
+  #_config;
 
   constructor({ knex, config }) {
-    this.#knex = knex(config);
+    this.#_config = config;
+    this.#knex = knex(this.#_config);
+  }
+
+  get config() {
+    return this.#_config;
   }
 
   async selectRecord({ table, values }) {
