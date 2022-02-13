@@ -2,10 +2,12 @@ class BookFactory {
 
 	#Book;
 	#generateId;
+	#isValidDate;
 
-	constructor({ Book, generateId, validateDate }) {
+	constructor({ Book, generateId, isValidDate }) {
 		this.#Book = Book;
 		this.#generateId = generateId;
+		this.#isValidDate = isValidDate;
 	}
 
 	createBook({ title, author, publishedDate, isbn }) {
@@ -15,6 +17,11 @@ class BookFactory {
 			!publishedDate.trim()) {
 			throw new Error('error creating book, empty values passed!');
 		}
+
+		if (!this.#isValidDate(publishedDate)) {
+			throw new Error('invalid date passed!');
+		}
+
 		const id = this.#generateId({ title, author, publishedDate, isbn });
 		return new this.#Book({ id, title, author, publishedDate, isbn });
 	}
