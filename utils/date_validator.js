@@ -1,13 +1,13 @@
 function isValidDate(date) {
-  if (new Date(date) === 'Invalid Date') {
-    return false
-  }
-  return true;
+  return new Date(date).toString() !== 'Invalid Date';
 }
 
-function dbDateFormat(date) {
-  return date.toISOString();
+function getISODate(date) {
+  const d = new Date(date);
+  return d.toISOString();
 }
 
-console.log(isValidDate('invalid'));
-console.log(isValidDate('12.02.2022'));
+module.exports = {
+  isValidDate,
+  getISODate,
+}
