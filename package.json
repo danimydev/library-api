@@ -20,6 +20,7 @@
   "dependencies": {
     "dotenv": "^16.0.0",
     "fastify": "^3.27.1",
-    "fastify-autoload": "^3.11.0"
+    "fastify-autoload": "^3.11.0",
+    "knex": "^1.0.3"
   }
 }
