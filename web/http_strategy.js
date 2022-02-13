@@ -1,12 +1,12 @@
 class HttpStrategy {
-	constructor({ library }){
+	constructor({ library }) {
 		this.server = library;
 	}
-	start({ port }){
-        
+	start({ port }) {
+
 	}
 }
 
 module.exports = {
-    HttpStrategy,
+	HttpStrategy,
 }

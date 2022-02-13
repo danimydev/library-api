@@ -1,8 +1,8 @@
 class Server {
-	constructor({ httpStrategy }){
+	constructor({ httpStrategy }) {
 		this.httpStrategy = httpStrategy;
 	}
-	start({ port} ){
+	start({ port }) {
 		this.httpStrategy.start({ port });
 	}
 }

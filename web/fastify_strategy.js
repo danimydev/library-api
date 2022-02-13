@@ -4,24 +4,24 @@ const { dirname, join } = require('path');
 
 const { HttpStrategy } = require('./http_strategy');
 
-class FastifyStrategy extends HttpStrategy{
+class FastifyStrategy extends HttpStrategy {
 
-	constructor({ library = fastify, options = { logger: true }}){
+	constructor({ library = fastify, options = { logger: true } }) {
 		super({ library });
 		this.server = this.server(options);
 		this.loadRoutes();
 	}
 
-	start({ port }){
+	start({ port }) {
 		this.server.listen(port, function (err, address) {
-		  if (err) {
-		    this.server.log.error(err);
-		    process.exit(1);
-		  }
+			if (err) {
+				this.server.log.error(err);
+				process.exit(1);
+			}
 		});
 	}
 
-	loadRoutes(){
+	loadRoutes() {
 		this.server.register(autoLoad, {
 			dir: join(__dirname, 'routes'),
 		});
@@ -30,5 +30,5 @@ class FastifyStrategy extends HttpStrategy{
 }
 
 module.exports = {
-    FastifyStrategy,
+	FastifyStrategy,
 }
