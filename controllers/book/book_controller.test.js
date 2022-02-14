@@ -1,4 +1,4 @@
-const { getBooks, getBookById, postBook, deleteBookById } = require('./index');
+const { getBooks, getBookById, postBook, deleteBookById, getBooksExecute } = require('./index');
 
 describe('book controller behaviour', () => {
 

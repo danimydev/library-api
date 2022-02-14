@@ -1,6 +1,23 @@
 const { bookFactory } = require('../../entities/book');
 const { knexAdapter } = require('../../database/adapters');
 const { ajvValidator } = require('../../utils/schema_validator');
+const { GetBooksController } = require('./get_books');
+const { CreateBookController } = require('./create_book');
+const { DeleteBookController } = require('./delete_book');
+
+const getBooksController = new GetBooksController({
+  ormAdapter: knexAdapter,
+});
+
+const createBookController = new CreateBookController({
+  ormAdapter: knexAdapter,
+  schemaValidator: ajvValidator,
+  factory: bookFactory,
+});
+
+const deleteBookController = new DeleteBookController({
+  ormAdapter: knexAdapter,
+});
 
 async function getBooks(httpRequest) {
   const books = await knexAdapter.selectRecord({
@@ -152,4 +169,7 @@ module.exports = {
   getBookById,
   postBook,
   deleteBookById,
+  getBooksExecute: getBooksController.execute,
+  createBookExecute: createBookController.execute,
+  deleteBookExecute: deleteBookController.execute,
 }
