@@ -11,7 +11,11 @@ class SchemaValidator {
   }
 
   registerValidator(params) {
-    this.#strategy.registerValidator(params);
+    try {
+      this.#strategy.registerValidator(params);
+    } catch (error) {
+      throw new Error('invalid schema');
+    }
   }
 
 }

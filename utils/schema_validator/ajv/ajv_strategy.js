@@ -14,8 +14,12 @@ class AJVStrategy {
   }
 
   registerValidator({ key, schema }) {
-    const validator = this.#ajv.compile(schema);
-    this.#validators[key] = validator;
+    try {
+      const validator = this.#ajv.compile(schema);
+      this.#validators[key] = validator;
+    } catch (error) {
+      throw new Error('invalid schema');
+    }
   }
 
   hasValidator({ key }) {
