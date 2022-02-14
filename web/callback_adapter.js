@@ -24,7 +24,8 @@ function buildHttpRequest(request) {
 
 async function executeAndGetHttpResponse(controller, httpRequest) {
   try {
-    return controller(httpRequest);
+    const response = await controller(httpRequest);
+    return response;
   } catch (error) {
     throw error;
   }

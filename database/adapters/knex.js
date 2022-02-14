@@ -17,7 +17,10 @@ class KnexAdapter {
       .select('*')
       .from(table)
       .where(values);
-    return this.parsedDBRecord(selected[0]);
+    if (selected.length !== 0) {
+      return this.parsedDBRecord(selected[0]);
+    }
+    return {};
   }
 
   async insertRecord({ table, values }) {

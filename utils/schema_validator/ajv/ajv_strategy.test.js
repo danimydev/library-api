@@ -9,12 +9,12 @@ const ajvStrategy = new AJVStrategy({
 });
 
 const bookSchema = {
-  type: "object",
+  type: 'object',
   properties: {
-    id: { type: "string" },
-    title: { type: "string" },
+    id: { type: 'string' },
+    title: { type: 'string' },
   },
-  required: ["id", "title"],
+  required: ['id', 'title'],
   additionalProperties: false
 };
 

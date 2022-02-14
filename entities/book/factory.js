@@ -23,6 +23,8 @@ class BookFactory {
 			throw new Error('invalid date passed!');
 		}
 
+		publishedDate = new Date(publishedDate).toISOString();
+
 		const id = this.#generateId({ title, isbn });
 		return new this.#Book({
 			id, title, authorId,
