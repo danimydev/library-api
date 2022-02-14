@@ -8,7 +8,10 @@ class GetBooksController {
 
   async execute(httpRequest) {
     try {
-      const books = await this.#orm();
+      const { id } = httpRequest.params;
+      const books = id
+        ? await this.#orm({ values: { id } })
+        : await this.#orm({ values: {} });
       return {
         statusCode: 200,
         body: {
@@ -18,15 +21,22 @@ class GetBooksController {
         }
       }
     } catch (error) {
-      throw error;
+      return {
+        statusCode: 500,
+        body: {
+          error: error,
+          method: httpRequest.method,
+          path: httpRequest.path,
+        }
+      }
     }
   }
 
-  async #orm() {
+  async #orm({ values }) {
     try {
       const books = await this.#ormAdapter.selectRecord({
         table: 'book',
-        values: {},
+        values,
       });
       return books;
     } catch (error) {

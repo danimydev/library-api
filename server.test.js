@@ -8,23 +8,7 @@ const fastify = httpStrategy.server;
 
 server.start({ port });
 
-describe('server routes responses', () => {
-
-  test('GET localhost:3000 status should be 200', async () => {
-    const response = await fastify.inject({
-      method: 'GET',
-      url: '/'
-    });
-    expect(response.statusCode).toBe(200);
-  });
-
-  test('POST localhost:3000 status should be 201', async () => {
-    const response = await fastify.inject({
-      method: 'POST',
-      url: '/'
-    });
-    expect(response.statusCode).toBe(201);
-  });
+describe('server routes witn controller executables', () => {
 
   test('GET localhost:3000/books status should be 200', async () => {
     const response = await fastify.inject({
@@ -40,22 +24,6 @@ describe('server routes responses', () => {
       url: '/books'
     });
     expect(response.statusCode).toBe(500);
-  });
-
-  test('GET localhost:3000/authors status should be 200', async () => {
-    const response = await fastify.inject({
-      method: 'GET',
-      url: '/authors'
-    });
-    expect(response.statusCode).toBe(200);
-  });
-
-  test('POST localhost:3000/authors status should be 201', async () => {
-    const response = await fastify.inject({
-      method: 'POST',
-      url: '/authors'
-    });
-    expect(response.statusCode).toBe(201);
   });
 
 });

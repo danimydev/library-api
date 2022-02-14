@@ -9,8 +9,9 @@ class DeleteBookController {
   async execute(httpRequest) {
     try {
       const { id } = httpRequest.params;
-      this.#validateValues({ values: { id } });
-      const deleted = !!await this.#orm({ values: { id } });
+      const deleted = id
+        ? await this.#orm({ values: { id } })
+        : await this.#orm({ values: {} });
       return {
         statusCode: 200,
         body: {
@@ -20,18 +21,14 @@ class DeleteBookController {
         }
       };
     } catch (error) {
-      throw error;
-    }
-  }
-
-  #validateValues({ values }) {
-    try {
-      const { id } = values;
-      if (!id || typeof id !== 'string') {
-        throw new Error('id is missing or needs to be string');
+      return {
+        statusCode: 500,
+        body: {
+          error: error,
+          method: httpRequest.method,
+          path: httpRequest.path,
+        }
       }
-    } catch (error) {
-      throw new Error('error validating on create book controller');
     }
   }
 

@@ -23,7 +23,14 @@ class UpdateBookController {
         }
       };
     } catch (error) {
-      throw error;
+      return {
+        statusCode: 500,
+        body: {
+          error: error,
+          method: httpRequest.method,
+          path: httpRequest.path,
+        }
+      }
     }
   }
 

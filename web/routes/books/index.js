@@ -1,14 +1,15 @@
 const { makeFastifyCallback } = require('../../callback_adapter');
-const { getBooks, getBookById, postBook } = require('../../../controllers/book');
-const { getBookOpts, postBookOpts } = require('./options');
+const {
+  getBooksController,
+  createBookController, } = require('../../../controllers/book');
 
 module.exports = (fastify, opts, next) => {
 
-  fastify.get('/', makeFastifyCallback(getBooks));
+  fastify.get('/', makeFastifyCallback(getBooksController));
 
-  fastify.get('/:id', makeFastifyCallback(getBookById));
+  fastify.get('/:id', makeFastifyCallback(getBooksController));
 
-  fastify.post('/', makeFastifyCallback(postBook));
+  fastify.post('/', makeFastifyCallback(createBookController));
 
   next();
 }

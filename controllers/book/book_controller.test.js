@@ -1,4 +1,8 @@
-const { getBooks, getBookById, postBook, deleteBookById, getBooksExecute } = require('./index');
+const {
+  getBooksController,
+  createBookController,
+  updateBookController,
+  deleteBookController } = require('./index');
 
 describe('book controller behaviour', () => {
 
@@ -13,7 +17,7 @@ describe('book controller behaviour', () => {
       path: '/books',
     }
 
-    const response = await getBooks(httpRequest);
+    const response = await getBooksController.execute(httpRequest);
     expect(response.statusCode).toBe(200);
   });
 
@@ -30,11 +34,11 @@ describe('book controller behaviour', () => {
       path: '/books',
     }
 
-    const response = await getBooks(httpRequest);
+    const response = await getBooksController.execute(httpRequest);
     expect(response.statusCode).toBe(200);
   });
 
-  test('should return 500 when missing id on getBookById', async () => {
+  test('should return 200 when missing id on getBookById', async () => {
 
     const httpRequest = {
       body: {},
@@ -44,8 +48,8 @@ describe('book controller behaviour', () => {
       method: 'GET',
       path: '/books',
     }
-    const response = await getBookById(httpRequest);
-    expect(response.statusCode).toBe(500);
+    const response = await getBooksController.execute(httpRequest);
+    expect(response.statusCode).toBe(200);
   });
 
   test('should return 201 on postBook with valid body', async () => {
@@ -65,12 +69,44 @@ describe('book controller behaviour', () => {
       method: 'POST',
       path: '/books',
     }
-    const response = await postBook(httpRequest);
+    const httpResponse = await createBookController.execute(httpRequest);
 
-    expect(response.body.book).toEqual({
+    expect(httpResponse.statusCode).toBe(201);
+    expect(httpResponse.body.createdBook).toEqual({
       id: 'b2ceb86576f1a2cc7f4d4d4718924710',
       title: 'book 1',
       author_id: '1',
+      published_date: '2012-12-12T05:00:00.000Z',
+      category: 'category 1',
+      isbn: '123456'
+    });
+  });
+
+  test('should return 200 when updating a book with valid body', async () => {
+
+    const httpRequest = {
+      body: {
+        title: 'book 1',
+        authorId: '2',
+        publishedDate: '12/12/2012',
+        category: 'category 1',
+        isbn: '123456',
+      },
+      query: null,
+      params: {
+        id: 'b2ceb86576f1a2cc7f4d4d4718924710',
+      },
+      ip: null,
+      method: 'POST',
+      path: '/books',
+    }
+    const httpResponse = await updateBookController.execute(httpRequest);
+
+    expect(httpResponse.statusCode).toBe(200);
+    expect(httpResponse.body.updatedBook).toEqual({
+      id: 'b2ceb86576f1a2cc7f4d4d4718924710',
+      title: 'book 1',
+      author_id: '2',
       published_date: '2012-12-12T05:00:00.000Z',
       category: 'category 1',
       isbn: '123456'
@@ -90,7 +126,7 @@ describe('book controller behaviour', () => {
       path: '/books',
     }
 
-    const response = await deleteBookById(httpRequest);
+    const response = await deleteBookController.execute(httpRequest);
     expect(response.statusCode).toBe(200);
   });
 

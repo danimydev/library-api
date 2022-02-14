@@ -15,7 +15,7 @@ class CreateBookController {
       const { body } = httpRequest;
       this.#validateValues({ values: body });
       const book = this.#getFromFactory({ values: body });
-      const insertableBook = this.entityBookToDBRecord(book);
+      const insertableBook = this.#parsetoSnakeCaseObject(book.getInfo());
       const createdBook = await this.#orm({ values: insertableBook });
       return {
         statusCode: 201,
@@ -26,7 +26,14 @@ class CreateBookController {
         }
       };
     } catch (error) {
-      throw error;
+      return {
+        statusCode: 500,
+        body: {
+          error: error,
+          method: httpRequest.method,
+          path: httpRequest.path,
+        }
+      }
     }
   }
 
@@ -65,17 +72,23 @@ class CreateBookController {
     }
   }
 
-  //TODO - Probably move to constructor as dependency injection
-  entityBookToDBRecord(book) {
-    const bookInfo = book.getInfo();
-    return {
-      id: bookInfo.id,
-      title: bookInfo.title,
-      author_id: bookInfo.authorId,
-      published_date: bookInfo.publishedDate,
-      category: bookInfo.category,
-      isbn: bookInfo.isbn,
-    };
+  #parsetoSnakeCaseObject(camalCasedObject) {
+    const snakeCaseObject = {};
+    const entries = Object.entries(camalCasedObject);
+    for (let i = 0; i < entries.length; i++) {
+      //[[key, value], [key, value], ... , [key, value]]
+      const key = entries[i][0];
+      const value = entries[i][1];
+      const snakeCaseKey = this.#parseToSnakeCaseString(key);
+      snakeCaseObject[snakeCaseKey] = value;
+    }
+    return snakeCaseObject;
+  }
+
+  #parseToSnakeCaseString(str) {
+    return str.replace(/[A-Z]/g, letter => {
+      return `_${letter.toLowerCase()}`
+    });
   }
 
 }

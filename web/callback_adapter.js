@@ -24,10 +24,17 @@ function buildHttpRequest(request) {
 
 async function executeAndGetHttpResponse(controller, httpRequest) {
   try {
-    const response = await controller(httpRequest);
-    return response;
+    const httpResponse = await controller.execute(httpRequest);
+    return httpResponse;
   } catch (error) {
-    throw error;
+    return {
+      statusCode: 500,
+      body: {
+        error,
+        method: httpRequest.method,
+        path: httpRequest.path,
+      }
+    }
   }
 }
 
