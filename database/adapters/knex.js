@@ -35,7 +35,7 @@ class KnexAdapter {
       .where({ id })
       .update(values)
       .returning('*');
-    return this.parsedDBRecord(updated[0]);
+    return updated.length ? updated[0] : {};
   }
 
   async deleteRecord({ table, values }) {
