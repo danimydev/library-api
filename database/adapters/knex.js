@@ -17,17 +17,14 @@ class KnexAdapter {
       .select('*')
       .from(table)
       .where(values);
-    if (selected.length !== 0) {
-      return this.parsedDBRecord(selected[0]);
-    }
-    return {};
+    return selected.length ? this.parsedDBRecord(selected[0]) : {};
   }
 
   async insertRecord({ table, values }) {
     const inserted = await this.#knex(table)
       .insert(values)
       .returning('*');
-    return this.parsedDBRecord(inserted[0]);
+    return inserted.length ? this.parsedDBRecord(inserted[0]) : {};
   }
 
   async updateRecord({ table, id, values }) {
@@ -35,7 +32,7 @@ class KnexAdapter {
       .where({ id })
       .update(values)
       .returning('*');
-    return this.parsedDBRecord(updated[0]);
+    return updated.length ? this.parsedDBRecord(updated[0]) : {};
   }
 
   async deleteRecord({ table, values }) {

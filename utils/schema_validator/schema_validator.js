@@ -18,6 +18,10 @@ class SchemaValidator {
     }
   }
 
+  hasValidator({ key }) {
+    return this.#strategy.hasValidator({ key });
+  }
+
 }
 
 module.exports = {
