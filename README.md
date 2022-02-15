@@ -18,6 +18,9 @@ npm install
 ## Usage
 
 ```bash
+# run database
+docker-compose up
+
 # run in development
 npm run dev
 
@@ -30,8 +33,12 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to update tests as appropriate.
 
-## Deploy
-
+## TODO
+ - Isolate usecases from controllers
+ - Build authors and library (Entities, Factories, UseCases and Controllers)
+ - Authentication (JWT) and set it on private routes
+ - Add Objection js between KnexStrategy and ORMAdapter
+ - CI/CD
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
