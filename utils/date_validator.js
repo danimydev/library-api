@@ -6,8 +6,9 @@ function isValidDate(date) {
 }
 
 function getISODate(date) {
-  const d = new Date(date);
-  return d.toISOString();
+  return isoDate = isValidDate(date)
+    ? new Date(date).toISOString()
+    : 'invalid';
 }
 
 module.exports = {

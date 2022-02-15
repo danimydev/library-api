@@ -24,7 +24,7 @@ describe('schemaVaidator behavior with ajvStrategy', () => {
       schema: Schema1,
     });
 
-    const hasSchema1 = ajvStrategy.hasValidator({ key: 'schema1' });
+    const hasSchema1 = ajvValidator.hasValidator({ key: 'schema1' });
 
     expect(hasSchema1).toBe(true);
   });

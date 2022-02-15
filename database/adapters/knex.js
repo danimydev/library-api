@@ -13,34 +13,51 @@ class KnexAdapter {
   }
 
   async selectRecord({ table, values }) {
-    const selected = await this.#knex
-      .select('*')
-      .from(table)
-      .where(values);
-    return selected.length ? this.parsedDBRecord(selected[0]) : {};
+    try {
+      const selected = await this.#knex
+        .select('*')
+        .from(table)
+        .where(values);
+      return selected.length ? this.parsedDBRecord(selected[0]) : {};
+    } catch (error) {
+      throw error;
+    }
   }
 
   async insertRecord({ table, values }) {
-    const inserted = await this.#knex(table)
-      .insert(values)
-      .returning('*');
-    return inserted.length ? this.parsedDBRecord(inserted[0]) : {};
+    try {
+      const inserted = await this.#knex(table)
+        .insert(values)
+        .returning('*');
+      return inserted.length ? this.parsedDBRecord(inserted[0]) : {};
+    } catch (error) {
+      throw error;
+    }
   }
 
   async updateRecord({ table, id, values }) {
-    const updated = await this.#knex(table)
-      .where({ id })
-      .update(values)
-      .returning('*');
-    return updated.length ? this.parsedDBRecord(updated[0]) : {};
+    try {
+      const updated = await this.#knex(table)
+        .where({ id })
+        .update(values)
+        .returning('*');
+      return updated.length ? this.parsedDBRecord(updated[0]) : {};
+    } catch (error) {
+      throw error;
+    }
   }
 
   async deleteRecord({ table, values }) {
-    return await this.#knex(table)
-      .where(values)
-      .del();
+    try {
+      return await this.#knex(table)
+        .where(values)
+        .del();
+    } catch (error) {
+      throw error;
+    }
   }
 
+  //TODO think a better solution
   parsedDBRecord(record) {
     const parsed = { ...record };
 
